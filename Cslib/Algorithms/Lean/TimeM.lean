@@ -64,12 +64,14 @@ instance : Monad TimeM where
   bind := bind
 
 instance : LawfulMonad TimeM := .mk'
-  (id_map := fun x => by rfl)
+  (id_map := by
+    intros
+    rfl)
   (pure_bind := by
     intros
     simp only [Bind.bind, Pure.pure]
     rw [bind, pure]
-    simp)
+    simp only [Nat.zero_add])
   (bind_assoc := by
     intros
     simp only [Bind.bind]
